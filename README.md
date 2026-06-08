@@ -19,6 +19,7 @@ A robust Windows PowerShell script that fully automates the post-cloning setup o
 * Your Active Directory `$Domain`, `$AdminUser`, and `$AdminPass`.
 * Your `$LocalAdmin` and `$LocalPass` (crucial for the automatic reboots).
 * Your Tactical RMM API URL, Download Link, IDs, and Auth Token.
+  --> This informations can be fund in the first lines of the TRMM Install Agent powershell script.
 
 
 3. Save the file.
@@ -100,6 +101,7 @@ Un script PowerShell robuste qui automatise entièrement la configuration post-c
 * Votre `$Domain` Active Directory, `$AdminUser`, et `$AdminPass`.
 * Votre `$LocalAdmin` et `$LocalPass` (crucial pour les redémarrages automatiques).
 * L'URL de l'API Tactical RMM, le lien de téléchargement, les IDs et le Token d'authentification.
+  --> Ces informations se trouvent dans les premières lignes du script PowerShell d'installation de l'agent TRMM.
 
 
 3. Sauvegardez le fichier.
