@@ -4,7 +4,7 @@ A robust Windows PowerShell script that fully automates the post-cloning setup o
 
 ## ✨ Features
 
-* 🔄 **3-Step Automation** — Survives multiple reboots using the `RunOnce` registry key.
+* 🔄 **4-Step Automation** — Survives multiple reboots using the `RunOnce` registry key.
 * 🏷️ **Smart Identity** — Automatically leaves the domain, renames the PC, and joins the domain cleanly to avoid Active Directory SID conflicts.
 * 🤖 **Zero-Touch (Almost)** — Only asks for the new PC name once at startup, then handles everything else automatically.
 * 📡 **Tactical RMM Integration** — Downloads, extracts, and silently registers the TRMM agent directly to your panel.
@@ -57,7 +57,8 @@ Set-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name
 3. A blue PowerShell window will appear automatically.
 4. Type the new name of the PC and press `Enter`.
 5. Walk away. The script will:
-* Leave the AD, rename the PC, and reboot.
+* Leave the AD domain and reboot.
+* Auto-login, rename the PC, and reboot.
 * Auto-login, join the AD with the new name, and reboot.
 * Auto-login, install Tactical RMM, sync GPOs, secure the PC (disable AutoLogon), and clean up all files.
 
@@ -76,7 +77,7 @@ If you want to use it securely in a production environment:
 
 ## 🖥️ Compatibility
 
-Tested on **Windows 10 / Windows 11** with **IACA** and **Windows Clone**.
+Tested on **Windows 10 / Windows 11** with **Active Directory** environments and the **Windows Backup Tool**.
 
 ---
 
@@ -86,7 +87,7 @@ Un script PowerShell robuste qui automatise entièrement la configuration post-c
 
 ## ✨ Fonctionnalités
 
-* 🔄 **Automatisation en 3 étapes** — Survit à plusieurs redémarrages en utilisant la clé de registre `RunOnce`.
+* 🔄 **Automatisation en 4 étapes** — Survit à plusieurs redémarrages en utilisant la clé de registre `RunOnce`.
 * 🏷️ **Identité intelligente** — Quitte automatiquement le domaine, renomme le PC et rejoint le domaine proprement pour éviter les conflits de SID dans l'Active Directory.
 * 🤖 **Zero-Touch (Presque)** — Ne demande le nouveau nom du PC qu'une seule fois au démarrage, puis gère tout le reste automatiquement.
 * 📡 **Intégration Tactical RMM** — Télécharge, extrait et enregistre silencieusement l'agent TRMM directement sur votre panel.
@@ -139,7 +140,8 @@ Set-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name
 3. Une fenêtre PowerShell bleue apparaîtra automatiquement.
 4. Tapez le nouveau nom du PC et appuyez sur `Entrée`.
 5. Vous pouvez partir. Le script va :
-* Quitter l'AD, renommer le PC, et redémarrer.
+* Quitter l'AD et redémarrer.
+* S'auto-connecter, renommer le PC et redémarrer.
 * S'auto-connecter, rejoindre l'AD avec le nouveau nom, et redémarrer.
 * S'auto-connecter, installer Tactical RMM, synchroniser les GPO, sécuriser le PC (désactiver l'AutoLogon), et nettoyer tous les fichiers.
 
@@ -158,4 +160,4 @@ Si vous souhaitez l'utiliser de manière sécurisée en production :
 
 ## 🖥️ Compatibilité
 
-Testé sur **Windows 10 / Windows 11** avec **IACA** et **l'outil de sauvegarde Windows**.
+Testé sur **Windows 10 / Windows 11** avec des environnements **Active Directory** et l'**outil de sauvegarde Windows**.
