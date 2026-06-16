@@ -3,7 +3,7 @@
 .SYNOPSIS
     Script de post-clonage machine Windows en 4 etapes automatisees.
     /!\ IMPORTANT Placer ce script dans C:\Scripts sur le PC Maitre avant clonage.
-	/!\ Si vous avez déjà executé une première fois le script sur votre ordinateur, avant toute cfhose, veuiller taper cette commande dans une fenêtre powershell en administrateur : -Remove-Item -Path "HKLM:\SOFTWARE\PostClone" -Force -Recurse -ErrorAction SilentlyContinue
+	/!\ Si vous avez déjà executé une première fois le script sur votre ordinateur, avant toute chose, veuiller taper cette commande dans une fenêtre powershell en administrateur : -Remove-Item -Path "HKLM:\SOFTWARE\PostClone" -Force -Recurse -ErrorAction SilentlyContinue
 	Tapez ces commandes dans une fenêtre powershell en administrateur sur le PC Maitre avant clonage :
 	# 1. Armer l'autologon
 	$r = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
@@ -16,6 +16,11 @@
 	Set-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" `
     	-Name "AutoStartClone" `
     	-Value "powershell.exe -NoExit -ExecutionPolicy Bypass -WindowStyle Normal -File C:\Scripts\PostClone.ps1"
+
+	~~ Si vous souhaitez finalement annuler le démarrage du script, ou si vous avez eu une erreur sur une machine lors de l'execution de celui-ci, vous devez taper ces commabdes : ~
+	-Remove-Item -Path "HKLM:\SOFTWARE\PostClone" -Force -Recurse -ErrorAction SilentlyContinue
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoAdminLogon -Value "0"
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name DefaultPassword -ErrorAction SilentlyContinue
 .DESCRIPTION
     - Etape 1 : Quitte le domaine AD (WMI, force locale, sans contact DC), puis redemarre
     - Etape 2 : Renomme la machine (en workgroup, sans credentials AD), puis redemarre
