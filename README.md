@@ -4,9 +4,10 @@ A robust Windows PowerShell script that fully automates the post-cloning setup o
 
 ## ✨ Features
 
-* 🔄 **4-Step Automation** — Survives multiple reboots using the `RunOnce` registry key.
+* 🔄 **5-Step Automation** — Survives multiple reboots using the `RunOnce` registry key.
 * 🏷️ **Smart Identity** — Automatically leaves the domain, renames the PC, and joins the domain cleanly to avoid Active Directory SID conflicts.
-* 🤖 **Zero-Touch (Almost)** — Only asks for the new PC name once at startup, then handles everything else automatically.
+* 🤖 **Zero-Touch (Almost)** — Only asks for the new PC name and a TRMM deployment profile once at startup, then handles everything else automatically.
+* 🏢 **Multi-Site TRMM** — Choose a deployment profile at startup to dispatch PCs to different clients/sites in your TRMM panel without re-configuring the script.
 * 📡 **Tactical RMM Integration** — Downloads, extracts, and silently registers the TRMM agent directly to your panel.
 * 🧹 **Self-Cleaning** — Deletes temporary installers, clears the registry keys, disables the `AutoAdminLogon`, and deletes itself when finished.
 
@@ -18,8 +19,9 @@ A robust Windows PowerShell script that fully automates the post-cloning setup o
 2. Fill in all the variables in the `# CONFIG` section:
 * Your Active Directory `$Domain`, `$AdminUser`, and `$AdminPass`.
 * Your `$LocalAdmin` and `$LocalPass` (crucial for the automatic reboots).
-* Your Tactical RMM API URL, Download Link, IDs, and Auth Token.
-  --> This informations can be fund in the first lines of the TRMM Install Agent powershell script.
+* Your Tactical RMM API URL, Download Link, and Auth Token.
+  --> This information can be found in the first lines of the TRMM Install Agent PowerShell script.
+* Your TRMM deployment profiles (`$Profils`): set the display name, `ClientId`, and `SiteId` for each site or location you deploy to.
 
 
 3. Save the file.
@@ -56,11 +58,13 @@ Set-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name
 2. The PC will automatically log into the local Administrator session.
 3. A blue PowerShell window will appear automatically.
 4. Type the new name of the PC and press `Enter`.
-5. Walk away. The script will:
+5. Select a TRMM deployment profile from the menu and press `Enter`.
+6. Walk away. The script will:
 * Leave the AD domain and reboot.
 * Auto-login, rename the PC, and reboot.
 * Auto-login, join the AD with the new name, and reboot.
-* Auto-login, install Tactical RMM, sync GPOs, secure the PC (disable AutoLogon), and clean up all files.
+* Auto-login, install Tactical RMM to the selected profile, sync GPOs, and reboot.
+* Auto-login with the student account, then clean up all traces (registry, scripts, AutoLogon).
 
 
 
@@ -87,9 +91,10 @@ Un script PowerShell robuste qui automatise entièrement la configuration post-c
 
 ## ✨ Fonctionnalités
 
-* 🔄 **Automatisation en 4 étapes** — Survit à plusieurs redémarrages en utilisant la clé de registre `RunOnce`.
+* 🔄 **Automatisation en 5 étapes** — Survit à plusieurs redémarrages en utilisant la clé de registre `RunOnce`.
 * 🏷️ **Identité intelligente** — Quitte automatiquement le domaine, renomme le PC et rejoint le domaine proprement pour éviter les conflits de SID dans l'Active Directory.
-* 🤖 **Zero-Touch (Presque)** — Ne demande le nouveau nom du PC qu'une seule fois au démarrage, puis gère tout le reste automatiquement.
+* 🤖 **Zero-Touch (Presque)** — Ne demande le nouveau nom du PC et un profil de déploiement TRMM qu'une seule fois au démarrage, puis gère tout le reste automatiquement.
+* 🏢 **Multi-Site TRMM** — Choisissez un profil de déploiement au lancement pour dispatcher les PC vers différents clients/sites de votre panel TRMM sans reconfigurer le script.
 * 📡 **Intégration Tactical RMM** — Télécharge, extrait et enregistre silencieusement l'agent TRMM directement sur votre panel.
 * 🧹 **Auto-Nettoyage** — Supprime les installeurs temporaires, nettoie les clés de registre, désactive l'`AutoAdminLogon` et se supprime lui-même une fois terminé.
 
@@ -101,8 +106,9 @@ Un script PowerShell robuste qui automatise entièrement la configuration post-c
 2. Remplissez toutes les variables dans la section `# CONFIG` :
 * Votre `$Domain` Active Directory, `$AdminUser`, et `$AdminPass`.
 * Votre `$LocalAdmin` et `$LocalPass` (crucial pour les redémarrages automatiques).
-* L'URL de l'API Tactical RMM, le lien de téléchargement, les IDs et le Token d'authentification.
+* L'URL de l'API Tactical RMM, le lien de téléchargement et le Token d'authentification.
   --> Ces informations se trouvent dans les premières lignes du script PowerShell d'installation de l'agent TRMM.
+* Vos profils de déploiement TRMM (`$Profils`) : définissez le nom affiché, le `ClientId` et le `SiteId` pour chaque site ou emplacement.
 
 
 3. Sauvegardez le fichier.
@@ -139,11 +145,13 @@ Set-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name
 2. Le PC se connectera automatiquement à la session Administrateur locale.
 3. Une fenêtre PowerShell bleue apparaîtra automatiquement.
 4. Tapez le nouveau nom du PC et appuyez sur `Entrée`.
-5. Vous pouvez partir. Le script va :
+5. Choisissez un profil de déploiement TRMM dans le menu et appuyez sur `Entrée`.
+6. Vous pouvez partir. Le script va :
 * Quitter l'AD et redémarrer.
 * S'auto-connecter, renommer le PC et redémarrer.
 * S'auto-connecter, rejoindre l'AD avec le nouveau nom, et redémarrer.
-* S'auto-connecter, installer Tactical RMM, synchroniser les GPO, sécuriser le PC (désactiver l'AutoLogon), et nettoyer tous les fichiers.
+* S'auto-connecter, installer Tactical RMM sur le profil sélectionné, synchroniser les GPO, et redémarrer.
+* S'auto-connecter avec le compte élève, puis nettoyer toutes les traces (registre, scripts, AutoLogon).
 
 
 
